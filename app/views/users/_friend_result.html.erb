@@ -1,0 +1,24 @@
+<%= render 'layouts/message' %>
+<% if @friends %>
+  <div class="card card-header d-block">
+ <table class = "col-md-12">
+  <tbody>
+ <% @friends.each do |friend| %> 
+  <tr>
+    <td><strong>Name: </strong> <%= friend.full_name %></td>
+    <td><strong>Email: </strong> <%= friend.email %></td>
+     <td>
+        <%= link_to "View Profile", "#", class: "btn btn-sm btn-success "%>
+        <% if current_user.not_friends_with?(friend.id) %>
+        <%= link_to "Follow", friendship_index_path(friend_id: friend.id), class: "btn btn-sm btn-success mx-2", method: :post %>
+        <% else %>
+       <%= link_to "Unfollow", friendship_path(friend), method: :delete , confirm: 'Are you sure want to remove?'}, class: "btn btn-sm btn-warning logout-button"%>
+        <% end %>
+    </td>
+    </tr>
+    <% end%>
+  </tbody>
+  </table>
+  </div>
+
+<% end %>
